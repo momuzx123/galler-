@@ -1,0 +1,245 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #4D989F;
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Add position so we can layer the blur */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add a blurred overlay using a pseudo-element */
+body::before {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #4D989F;
+  filter: blur(16px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Raise slider-container above the blur */
+.slider-container {
+  position: relative;
+  z-index: 1;
+  width: 98vw;
+  max-width: 1800px;
+  margin: 0 auto;
+  aspect-ratio: 16/7;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.12);
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ...rest of your CSS remains unchanged... */
+.slider-container {
+  width: 98vw;
+  max-width: 1800px;
+  margin: 0 auto;
+  position: relative;
+  aspect-ratio: 16/7;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.12);
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 95%;
+  height: 96%;
+  margin: 0 2.5%;
+  border-radius: 24px;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  opacity: 0;
+  z-index: 1;
+  transition:
+    opacity 0.5s,
+    transform 0.5s,
+    box-shadow 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide .slide-content {
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 4px 18px rgba(0,0,0,0.55);
+  font-size: 2.8vw;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background: rgba(0,0,0,0.10);
+  border-radius: 16px;
+  padding: 1.2vw 2vw;
+}
+
+.slide .slide-content p {
+  margin: 0.7vw 0 0;
+  font-size: 1.5vw;
+  font-weight: 400;
+}
+
+.slide.active {
+  opacity: 1;
+  z-index: 4;
+  transform: scale(1) translateX(0);
+  box-shadow: 0 10px 36px rgba(0,0,0,0.25);
+}
+
+.slide.prev {
+  opacity: 1;
+  z-index: 2;
+  transform: scale(0.94) translateX(-70px) rotate(-2deg);
+  filter: brightness(0.7) blur(1px);
+}
+
+.slide.next {
+  opacity: 1;
+  z-index: 2;
+  transform: scale(0.94) translateX(70px) rotate(2deg);
+  filter: brightness(0.7) blur(1px);
+}
+
+.slide.prev2,
+.slide.next2 {
+  opacity: 0.6;
+  z-index: 1;
+  transform: scale(0.9) translateX(-140px);
+  filter: brightness(0.5) blur(2px);
+}
+
+.slide.next2 {
+  transform: scale(0.9) translateX(140px);
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 14px;
+  position: absolute;
+  left: 0; right: 0; bottom: 22px;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.slider-dots .dot {
+  width: 32px;
+  height: 4px;
+  margin: 0 3px;
+  background: rgba(60,60,60,0.13);
+  border-radius: 2px;
+  transition: background 0.4s, width 0.4s;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.slider-dots .dot.active {
+  background: #fff;
+  width: 50px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Responsive styles */
+@media (max-width: 1400px) {
+  .slider-container {
+    max-width: 1200px;
+    aspect-ratio: 16/8;
+  }
+  .slide .slide-content {
+    font-size: 3.3vw;
+    padding: 1.6vw 3vw;
+  }
+  .slide .slide-content p {
+    font-size: 2vw;
+  }
+}
+@media (max-width: 1100px) {
+  .slider-container {
+    aspect-ratio: 16/9;
+    max-width: 900px;
+  }
+  .slide .slide-content {
+    font-size: 3.9vw;
+    padding: 2vw 4vw;
+  }
+  .slide .slide-content p {
+    font-size: 2.4vw;
+  }
+}
+@media (max-width: 800px) {
+  .slider-container {
+    aspect-ratio: 16/10;
+    max-width: 99vw;
+    border-radius: 8px;
+  }
+  .slide {
+    border-radius: 12px;
+  }
+  .slide .slide-content {
+    font-size: 4.6vw;
+    padding: 4vw 2vw;
+  }
+  .slide .slide-content p {
+    font-size: 2.9vw;
+  }
+}
+@media (max-width: 600px) {
+  body {
+    min-height: 0;
+    height: 100vh;
+  }
+  .slider-container {
+    width: 100vw;
+    max-width: 100vw;
+    aspect-ratio: 1/1.1;
+    border-radius: 0;
+    margin: 0;
+  }
+  .slide {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    margin: 0;
+  }
+  .slide .slide-content {
+    font-size: 7vw;
+    border-radius: 4px;
+    padding: 14px 8px;
+  }
+  .slide .slide-content p {
+    font-size: 3.7vw;
+  }
+  .slider-dots {
+    bottom: 10px;
+  }
+}
